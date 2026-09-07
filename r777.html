@@ -3,17 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R777</title>
+<title>R777 - সব গেম</title>
 <style>
-body{background:#0f172a; color:#fff; text-align:center; padding:50px; font-family:Arial}
+body{background:#0f172a; color:#fff; text-align:center; padding:20px; font-family:Arial}
 h1{color:#22c55e; font-size:32px}
-p{font-size:18px}
-.btn{background:#22c55e; padding:15px 30px; border:none; border-radius:10px; color:#fff; font-size:18px; margin-top:20px}
+.menu{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:20px 0}
+.tab-btn{background:#1e293b; padding:12px 20px; border:none; border-radius:10px; color:#fff; font-size:16px; cursor:pointer}
+.tab-btn.active{background:#22c55e}
+.page{display:none}
+.page.active{display:block}
+.btn{background:#22c55e; padding:15px 30px; border:none; border-radius:10px; color:#fff; font-size:18px; margin:10px; cursor:pointer}
+.box{width:90px; height:90px; background:#22c55e; margin:8px; display:inline-block; cursor:pointer; border-radius:10px; line-height:90px; font-size:22px}
+.plane-area{background:#1e293b; padding:20px; border-radius:15px; margin:20px auto; max-width:500px}
+.plane{font-size:50px; transition:all 2s; margin:20px}
+.multi{font-size:28px; color:#facc15; font-weight:bold}
 </style>
 </head>
 <body>
 <h1>R777 ডেমো</h1>
+
+<div class="menu">
+<button class="tab-btn active" onclick="showPage('home')">হোম</button>
+<button class="tab-btn" onclick="showPage('recommended')">সুপারিশ</button>
+<button class="tab-btn" onclick="showPage('others')">অন্যান্য গেম</button>
+<button class="tab-btn" onclick="showPage('plane')">বিমান গেম</button>
+</div>
+
+<!-- হোম পেজ -->
+<div id="home" class="page active">
 <p>অভিনন্দন! আপনার সাইট GitHub এ লাইভ</p>
-<button class="btn">এখনই খেলুন</button>
+<button class="btn" onclick="showPage('plane')">এখনই খেলুন</button>
+</div>
+
+<!-- সুপারিশ পেজ -->
+<div id="recommended" class="page">
+<h2>সুপারিশকৃত গেম</h2>
+<button class="btn" onclick="alert('ড্রাগন টাইগার গেম')">🐉 ড্রাগন টাইগার</button>
+<button class="btn" onclick="alert('রুলেট গেম')">🎰 রুলেট</button>
+<button class="btn" onclick="alert('স্লট গেম')">🎲 স্লট</button>
+</div>
+
+<!-- অন্যান্য গেম -->
+<div id="others" class="page">
+<h2>অন্যান্য গেম</h2>
+<h3>লাকি বক্স</h3>
+<div class="box" onclick="win()">?</div>
+<div class="box" onclick="lose()">?</div>
+<div class="box" onclick="lose()">?</div>
+<p id="result"></p>
+</div>
+
+<!-- বিমান গেম -->
+<div id="plane" class="page">
+<h2>বিমান গেম</h2>
+<div class="plane-area">
+<div id="planeIcon" class="plane">✈️</div>
+<div class="multi" id="multiplier">1.00x</div>
+<button class="btn" onclick="startPlane()">উড়ান শুরু</button>
+<p>নিয়ম: 10 বারের মধ্যে 1 বার 5x যাবে। বাকি 9 বার 1x থেকে 4x এর মধ্যে ক্র্যাশ করবে।</p>
+</div>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function win(){
+  document.getElementById('result').innerText='জিতেছেন! 500 টাকা 🎉';
+  document.getElementById('result').style.color='#22c55e';
+}
+function lose(){
+  document.getElementById('result').innerText='হেরে গেছেন! আবার চেষ্টা করেন';
+  document.getElementById('result').style.color='red';
+}
+
+// বিমান গেম লজিক
+let planeCount = 0;
+function startPlane(){
+  planeCount++;
+  let multi;
+  
+  // 10 বারে 1 বার 5x
+  if(planeCount % 10 === 0){
+    multi = 5.00;
+  } else {
+    // বাকিগুলা 1x থেকে 4x র‍্যান্ডম
+    multi = (Math.random() * 3 + 1).toFixed(2);
+  }
+  
+  document.getElementById('multiplier').innerText = multi + 'x';
+  document.getElementById('planeIcon').style.transform = 'translateY(-200px)';
+  
+  setTimeout(()=>{
+    document.getElementById('planeIcon').style.transform = 'translateY(0)';
+    alert('ক্র্যাশ! গুণ ছিল: ' + multi + 'x');
+  }, 2000);
+}
+</script>
 </body>
-</html>
+  </html>
