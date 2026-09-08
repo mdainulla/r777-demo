@@ -3,106 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R777 Pro Demo</title>
+<title>SkyPlay Pro Demo</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Arial';}
-  body{background:#0d0d0d;color:#fff;}
-  .header{background:#111;padding:10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffaa00;}
-  .logo{color:#ffaa00;font-size:22px;font-weight:bold;}
-  .balance{color:#00ff00;font-weight:bold;}
-  .banner{background:linear-gradient(90deg,#ffaa00,#ff5500);padding:15px;text-align:center;margin:10px;border-radius:10px;}
-  .game-box{background:#1a1a1a;margin:10px;padding:15px;border-radius:12px;border:1px solid #333;}
-  .plane-area{background:#000;height:200px;border-radius:10px;position:relative;overflow:hidden;text-align:center;padding-top:70px;}
-  .plane{font-size:50px;position:absolute;left:10%;top:50%;}
-  .multi{font-size:40px;color:#ffaa00;font-weight:bold;}
-  .bet-area{display:flex;gap:10px;margin-top:15px;}
-  .bet-btn{flex:1;background:#ffaa00;color:#000;border:none;padding:15px;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;}
-  .cashout{background:#00c853;}
-  .btn-wa{background:#25D366;color:#fff;padding:12px;width:100%;border-radius:8px;text-align:center;text-decoration:none;display:block;margin:10px 0;font-weight:bold;}
-  .admin{background:#222;padding:10px;border-radius:8px;margin-top:10px;}
+  body{background:#070707;color:#fff;}
+  .header{background:#111;padding:12px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #00d4ff;position:sticky;top:0;}
+  .logo{color:#00d4ff;font-size:20px;font-weight:bold;}
+  .balance{color:#00ff88;font-weight:bold;}
+  .top-btns{display:flex;gap:8px;}
+  .top-btn{background:#00d4ff;color:#000;padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:12px;}
+  .banner{background:linear-gradient(90deg,#00d4ff,#0088ff);padding:15px;text-align:center;margin:10px;border-radius:10px;font-weight:bold;}
+  .games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px;}
+  .game-card{background:#151515;padding:15px;border-radius:10px;text-align:center;cursor:pointer;border:1px solid #222;}
+  .game-card:hover{background:#222;}
+  .game-icon{font-size:30px;margin-bottom:5px;}
+  .box{background:#151515;margin:10px;padding:15px;border-radius:12px;border:1px solid #222;}
+  .btn{width:100%;padding:14px;border:none;border-radius:8px;font-weight:bold;margin:6px 0;cursor:pointer;font-size:15px;}
+  .btn-wa{background:#25D366;color:#fff;text-decoration:none;display:block;text-align:center;}
+  .btn-admin{background:#ffaa00;color:#000;}
   input{width:100%;padding:10px;margin:5px 0;border-radius:5px;border:none;background:#333;color:#fff;}
+  .fly-zone{background:#000;height:200px;border-radius:10px;text-align:center;padding-top:70px;position:relative;}
+  .rocket{font-size:50px;position:absolute;left:10%;top:50%;}
+  .multi{font-size:35px;color:#00d4ff;font-weight:bold;}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="logo">R777 DEMO</div>
-  <div class="balance"><span id="balance">0</span> KB</div>
+  <div class="logo">🚀 SkyPlay DEMO</div>
+  <div>
+    <span class="balance"><span id="bal">100</span> COIN</span>
+  </div>
+</div>
+
+<div class="top-btns" style="padding:10px;">
+  <a href="https://wa.me/8801945952533" target="_blank" class="top-btn">💰 জমা</a>
+  <a href="https://wa.me/8801945952533" target="_blank" class="top-btn">💸 উত্তোলন</a>
+  <a href="#admin" class="top-btn">🔑 Admin</a>
 </div>
 
 <div class="banner">
-  🎁 প্রথম Login এ 100 KB ফ্রি!
+  🎁 প্রথম Login এ 100 COIN ফ্রি! | COIN লাগলে জমা বাটনে চাপ দিন
 </div>
 
-<a href="https://wa.me/8801945952533?text=ভাই%20আমার%20কয়েন%20লাগবে" target="_blank" class="btn-wa">
-  💰 কয়েন লাগলে WhatsApp করুন
-</a>
-
-<div class="game-box">
-  <h3>✈️ AVIATOR DEMO</h3>
-  <div class="plane-area">
-    <div class="plane" id="plane">✈️</div>
-    <div class="multi"><span id="multi">1.00</span>x</div>
-    <p id="status">Bet করার জন্য অপেক্ষা করছে...</p>
+<h3 style="padding:0 10px;">🔥 জনপ্রিয় গেমস</h3>
+<div class="games-grid">
+  <div class="game-card" onclick="openGame('rocket')">
+    <div class="game-icon">🚀</div>
+    <div>Rocket</div>
   </div>
-  
-  <div class="bet-area">
-    <button class="bet-btn" onclick="bet(10)">Bet 10 KB</button>
-    <button class="bet-btn cashout" onclick="cashout()">Cashout</button>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">🎰</div>
+    <div>SuperAce</div>
+  </div>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">🐯</div>
+    <div>Tiger</div>
+  </div>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">🎲</div>
+    <div>Dragon</div>
+  </div>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">💎</div>
+    <div>Diamond</div>
+  </div>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">🃏</div>
+    <div>Card</div>
+  </div>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">⚽</div>
+    <div>Sports</div>
+  </div>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">🎯</div>
+    <div>Lottery</div>
+  </div>
+  <div class="game-card" onclick="alert('শীঘ্রই আসছে')">
+    <div class="game-icon">👑</div>
+    <div>King</div>
   </div>
 </div>
 
-<div class="game-box admin">
+<div id="game-area" class="box" style="display:none;">
+  <h3>🚀 Rocket Game</h3>
+  <div class="fly-zone">
+    <div class="rocket" id="rocket">🚀</div>
+    <div class="multi"><span id="x">1.00</span>x</div>
+    <p id="msg">Bet করুন</p>
+  </div>
+  <button class="btn" style="background:#00d4ff;color:#000" onclick="start(10)">Bet 10 COIN</button>
+  <button class="btn" style="background:#00d4ff;color:#000" onclick="start(50)">Bet 50 COIN</button>
+  <button class="btn" style="background:#00ff88;color:#000" onclick="stop()">Cashout</button>
+</div>
+
+<div id="admin" class="box">
   <h4>🔑 Admin Panel</h4>
-  <input id="addUser" placeholder="ইউজারের নাম">
-  <button class="bet-btn" onclick="addCoin(100)">+ 100 KB দিন</button>
-  <button class="bet-btn" onclick="addCoin(500)">+ 500 KB দিন</button>
+  <input id="u" placeholder="ইউজার নাম লিখুন">
+  <button class="btn btn-admin" onclick="give(100)">+100 COIN দিন</button>
+  <button class="btn btn-admin" onclick="give(500)">+500 COIN দিন</button>
+  <button class="btn" style="background:#ff4444;color:#fff" onclick="reset()">Reset Balance</button>
 </div>
 
 <script>
-let balance=0,playing=false,currentMulti=1.00,betAmount=0,currentUser="Guest";
+let bal=100,play=false,x=1,b=0,pos=10;
+function upd(){document.getElementById('bal').innerText=bal.toFixed(2)}
+function openGame(g){document.getElementById('game-area').style.display='block';window.scrollTo(0,document.getElementById('game-area').offsetTop)}
 
-// প্রথমে 100 ফ্রি
-window.onload=function(){
-  let saved=localStorage.getItem('demo_balance');
-  let free=localStorage.getItem('demo_free');
-  if(!free){balance=100;localStorage.setItem('demo_free','yes');alert("100 KB ফ্রি পেয়েছেন!")}
-  else{balance=parseInt(saved)||0}
-  updateBalance();
+function start(a){
+  if(play)return alert("আগের রাউন্ড শেষ করুন");
+  if(bal<a)return alert("COIN নাই! জমা বাটনে চাপ দিন");
+  bal-=a;b=a;play=true;x=1.00;pos=10;
+  document.getElementById('msg').innerText="Flying...";
+  let i=setInterval(()=>{
+    if(!play){clearInterval(i);return;}
+    x+=0.04;pos+=2;
+    document.getElementById('x').innerText=x.toFixed(2);
+    document.getElementById('rocket').style.left=pos+'%';
+    if(Math.random()>0.96 || pos>90){
+      play=false;b=0;
+      document.getElementById('msg').innerText="💥 Crashed!";
+      upd();clearInterval(i);
+    }
+  },120)
 }
 
-function updateBalance(){
-  document.getElementById('balance').innerText=balance;
-  localStorage.setItem('demo_balance',balance);
+function stop(){
+  if(!play)return;
+  play=false;
+  let win=b*x;
+  bal+=win;
+  document.getElementById('msg').innerText=`🎉 Won ${win.toFixed(2)} COIN`;
+  upd();
 }
 
-function bet(amount){
-  if(balance<amount){alert("কয়েন নাই! WhatsApp করুন");return;}
-  betAmount=amount;balance-=amount;playing=true;currentMulti=1.00;
-  document.getElementById('status').innerText="উড়ছে...";
-  let pos=10;
-  let fly=setInterval(()=>{
-    if(!playing){clearInterval(fly);return;}
-    currentMulti+=0.04;pos+=2;
-    document.getElementById('multi').innerText=currentMulti.toFixed(2);
-    document.getElementById('plane').style.left=pos+'%';
-    if(Math.random()>0.97){playing=false;betAmount=0;document.getElementById('status').innerText="💥 ক্র্যাশ!";clearInterval(fly);updateBalance();}
-  },150);
-}
-
-function cashout(){
-  if(!playing)return;
-  playing=false;
-  let win=betAmount*currentMulti;
-  balance+=win;
-  document.getElementById('status').innerText=`🎉 জিতলেন ${win.toFixed(2)} KB`;
-  updateBalance();
-}
-
-function addCoin(amount){
-  balance+=amount;updateBalance();alert(amount+" KB যোগ হলো");
-}
+function give(n){bal+=n;upd();alert(n+" COIN যোগ হলো")}
+function reset(){bal=100;upd();alert("Balance Reset")}
+upd();
 </script>
-
 </body>
-</html>
+ </html>
