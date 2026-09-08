@@ -3,134 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R777 Coin Demo</title>
+<title>R777 Pro Demo</title>
 <style>
-  body { background:#0a0a0a; color:#fff; font-family: Arial; margin:0; padding:10px; }
-  .box { background:#1a1a1a; padding:15px; border-radius:12px; margin:10px 0; text-align:center; }
-  .btn { background:#ff9900; color:#000; border:none; padding:12px; width:100%; border-radius:8px; font-size:16px; font-weight:bold; margin:5px 0; text-decoration:none; display:block; cursor:pointer; }
-  .btn-green { background:#28a745; color:#fff; }
-  .btn-red { background:#dc3545; color:#fff; }
-  .btn-blue { background:#007bff; color:#fff; }
-  input { width:90%; padding:10px; margin:5px 0; border-radius:5px; border:none; background:#333; color:#fff; }
-  .plane { font-size:40px; margin:20px 0; }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Arial';}
+  body{background:#0d0d0d;color:#fff;}
+  .header{background:#111;padding:10px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffaa00;}
+  .logo{color:#ffaa00;font-size:22px;font-weight:bold;}
+  .balance{color:#00ff00;font-weight:bold;}
+  .banner{background:linear-gradient(90deg,#ffaa00,#ff5500);padding:15px;text-align:center;margin:10px;border-radius:10px;}
+  .game-box{background:#1a1a1a;margin:10px;padding:15px;border-radius:12px;border:1px solid #333;}
+  .plane-area{background:#000;height:200px;border-radius:10px;position:relative;overflow:hidden;text-align:center;padding-top:70px;}
+  .plane{font-size:50px;position:absolute;left:10%;top:50%;}
+  .multi{font-size:40px;color:#ffaa00;font-weight:bold;}
+  .bet-area{display:flex;gap:10px;margin-top:15px;}
+  .bet-btn{flex:1;background:#ffaa00;color:#000;border:none;padding:15px;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;}
+  .cashout{background:#00c853;}
+  .btn-wa{background:#25D366;color:#fff;padding:12px;width:100%;border-radius:8px;text-align:center;text-decoration:none;display:block;margin:10px 0;font-weight:bold;}
+  .admin{background:#222;padding:10px;border-radius:8px;margin-top:10px;}
+  input{width:100%;padding:10px;margin:5px 0;border-radius:5px;border:none;background:#333;color:#fff;}
 </style>
 </head>
 <body>
 
-<h2 style="text-align:center;">✈️ R777 COIN DEMO</h2>
-<p style="text-align:center; font-size:12px; color:#aaa;">*শুধু ডেমো কয়েন। কোনো টাকা নাই*</p>
-
-<!-- LOGIN PAGE -->
-<div id="login" class="box">
-  <h3>Login করুন</h3>
-  <input id="username" placeholder="আপনার নাম লিখুন">
-  <button class="btn btn-green" onclick="login()">খেলায় ঢুকুন</button>
+<div class="header">
+  <div class="logo">R777 DEMO</div>
+  <div class="balance"><span id="balance">0</span> KB</div>
 </div>
 
-<!-- GAME PAGE -->
-<div id="game" style="display:none;">
-  <div class="box">
-    <h3>স্বাগতম: <span id="user"></span></h3>
-    <h2>Balance: <span id="balance">0</span> KB</h2>
-    <a href="https://wa.me/8801945952533?text=ভাই%20আমার%20কয়েন%20শেষ%20আমাকে%20কয়েন%20দেন" 
-       target="_blank" class="btn">
-       💰 কয়েন লাগবে? আমাকে WhatsApp করুন
-    </a>
-  </div>
+<div class="banner">
+  🎁 প্রথম Login এ 100 KB ফ্রি!
+</div>
 
-  <div class="box">
-    <div class="plane">✈️</div>
-    <h2>Multiplier: <span id="multi">1.00</span>x</h2>
-    <button class="btn btn-green" onclick="bet(10)">Bet 10 KB</button>
-    <button class="btn btn-red" onclick="cashout()">Cashout</button>
-    <p id="result"></p>
-  </div>
+<a href="https://wa.me/8801945952533?text=ভাই%20আমার%20কয়েন%20লাগবে" target="_blank" class="btn-wa">
+  💰 কয়েন লাগলে WhatsApp করুন
+</a>
 
-  <!-- ADMIN PANEL -->
-  <div class="box">
-    <h4>🔑 Admin Panel - কয়েন দিন</h4>
-    <input id="addUser" placeholder="ইউজারের নাম লিখুন">
-    <button class="btn btn-blue" onclick="addCoin(100)">+ 100 KB দিন</button>
-    <button class="btn btn-blue" onclick="addCoin(500)">+ 500 KB দিন</button>
+<div class="game-box">
+  <h3>✈️ AVIATOR DEMO</h3>
+  <div class="plane-area">
+    <div class="plane" id="plane">✈️</div>
+    <div class="multi"><span id="multi">1.00</span>x</div>
+    <p id="status">Bet করার জন্য অপেক্ষা করছে...</p>
   </div>
+  
+  <div class="bet-area">
+    <button class="bet-btn" onclick="bet(10)">Bet 10 KB</button>
+    <button class="bet-btn cashout" onclick="cashout()">Cashout</button>
+  </div>
+</div>
+
+<div class="game-box admin">
+  <h4>🔑 Admin Panel</h4>
+  <input id="addUser" placeholder="ইউজারের নাম">
+  <button class="bet-btn" onclick="addCoin(100)">+ 100 KB দিন</button>
+  <button class="bet-btn" onclick="addCoin(500)">+ 500 KB দিন</button>
 </div>
 
 <script>
-let balance = 0;
-let playing = false;
-let currentMulti = 1.00;
-let betAmount = 0;
-let currentUser = "";
+let balance=0,playing=false,currentMulti=1.00,betAmount=0,currentUser="Guest";
 
-function login(){
-  currentUser = document.getElementById('username').value;
-  if(currentUser == ""){ alert("নাম লিখুন"); return; }
-  
-  document.getElementById('user').innerText = currentUser;
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('game').style.display = 'block';
-
-  let savedFree = localStorage.getItem(currentUser + '_free');
-  if(!savedFree){
-    balance = 100;
-    localStorage.setItem(currentUser + '_free', 'yes');
-    alert("অভিনন্দন! আপনি 100 KB ফ্রি পেয়েছেন");
-  } else {
-    balance = parseInt(localStorage.getItem(currentUser + '_balance')) || 0;
-  }
+// প্রথমে 100 ফ্রি
+window.onload=function(){
+  let saved=localStorage.getItem('demo_balance');
+  let free=localStorage.getItem('demo_free');
+  if(!free){balance=100;localStorage.setItem('demo_free','yes');alert("100 KB ফ্রি পেয়েছেন!")}
+  else{balance=parseInt(saved)||0}
   updateBalance();
 }
 
 function updateBalance(){
-  document.getElementById('balance').innerText = balance;
-  localStorage.setItem(currentUser + '_balance', balance);
+  document.getElementById('balance').innerText=balance;
+  localStorage.setItem('demo_balance',balance);
 }
 
 function bet(amount){
-  if(balance < amount){ alert("কয়েন নাই! WhatsApp করুন"); return; }
-  betAmount = amount;
-  balance -= amount;
-  playing = true;
-  currentMulti = 1.00;
-  document.getElementById('result').innerText = "বিমান উড়ছে...";
-  
-  let fly = setInterval(()=>{
-    if(!playing){ clearInterval(fly); return; }
-    currentMulti += 0.05;
-    document.getElementById('multi').innerText = currentMulti.toFixed(2);
-    if(Math.random() > 0.95){
-      playing = false; 
-      betAmount = 0;
-      document.getElementById('result').innerText = "💥 ক্র্যাশ! আপনি হারলেন";
-      clearInterval(fly);
-      updateBalance();
-    }
-  },200);
+  if(balance<amount){alert("কয়েন নাই! WhatsApp করুন");return;}
+  betAmount=amount;balance-=amount;playing=true;currentMulti=1.00;
+  document.getElementById('status').innerText="উড়ছে...";
+  let pos=10;
+  let fly=setInterval(()=>{
+    if(!playing){clearInterval(fly);return;}
+    currentMulti+=0.04;pos+=2;
+    document.getElementById('multi').innerText=currentMulti.toFixed(2);
+    document.getElementById('plane').style.left=pos+'%';
+    if(Math.random()>0.97){playing=false;betAmount=0;document.getElementById('status').innerText="💥 ক্র্যাশ!";clearInterval(fly);updateBalance();}
+  },150);
 }
 
 function cashout(){
-  if(!playing){ return; }
-  playing = false;
-  let win = betAmount * currentMulti;
-  balance += win;
-  document.getElementById('result').innerText = `🎉 জিতলেন ${win.toFixed(2)} KB`;
+  if(!playing)return;
+  playing=false;
+  let win=betAmount*currentMulti;
+  balance+=win;
+  document.getElementById('status').innerText=`🎉 জিতলেন ${win.toFixed(2)} KB`;
   updateBalance();
 }
 
 function addCoin(amount){
-  let userToAdd = document.getElementById('addUser').value;
-  if(userToAdd == ""){ alert("নাম লিখুন"); return; }
-  let userBalance = parseInt(localStorage.getItem(userToAdd + '_balance')) || 0;
-  userBalance += amount;
-  localStorage.setItem(userToAdd + '_balance', userBalance);
-  alert(userToAdd + " কে " + amount + " KB দেওয়া হলো");
-  if(userToAdd == currentUser){
-    balance = userBalance;
-    updateBalance();
-  }
+  balance+=amount;updateBalance();alert(amount+" KB যোগ হলো");
 }
 </script>
 
 </body>
-  </html>
-  
+</html>
