@@ -7,13 +7,12 @@
 <style>
   body { background:#0a0a0a; color:#fff; font-family: Arial; margin:0; padding:10px; }
   .box { background:#1a1a1a; padding:15px; border-radius:12px; margin:10px 0; text-align:center; }
-  .btn { background:#ff9900; color:#000; border:none; padding:12px; width:100%; border-radius:8px; font-size:16px; font-weight:bold; margin:5px 0; text-decoration:none; display:block; }
+  .btn { background:#ff9900; color:#000; border:none; padding:12px; width:100%; border-radius:8px; font-size:16px; font-weight:bold; margin:5px 0; text-decoration:none; display:block; cursor:pointer; }
   .btn-green { background:#28a745; color:#fff; }
   .btn-red { background:#dc3545; color:#fff; }
   .btn-blue { background:#007bff; color:#fff; }
   input { width:90%; padding:10px; margin:5px 0; border-radius:5px; border:none; background:#333; color:#fff; }
   .plane { font-size:40px; margin:20px 0; }
-  #game, #login { display:none; }
 </style>
 </head>
 <body>
@@ -29,12 +28,10 @@
 </div>
 
 <!-- GAME PAGE -->
-<div id="game">
+<div id="game" style="display:none;">
   <div class="box">
     <h3>স্বাগতম: <span id="user"></span></h3>
     <h2>Balance: <span id="balance">0</span> KB</h2>
-    
-    <!-- WhatsApp Deposit Button -->
     <a href="https://wa.me/8801945952533?text=ভাই%20আমার%20কয়েন%20শেষ%20আমাকে%20কয়েন%20দেন" 
        target="_blank" class="btn">
        💰 কয়েন লাগবে? আমাকে WhatsApp করুন
@@ -49,13 +46,12 @@
     <p id="result"></p>
   </div>
 
-  <!-- ADMIN PANEL - শুধু আপনি দেখবেন -->
+  <!-- ADMIN PANEL -->
   <div class="box">
     <h4>🔑 Admin Panel - কয়েন দিন</h4>
     <input id="addUser" placeholder="ইউজারের নাম লিখুন">
     <button class="btn btn-blue" onclick="addCoin(100)">+ 100 KB দিন</button>
     <button class="btn btn-blue" onclick="addCoin(500)">+ 500 KB দিন</button>
-    <button class="btn btn-blue" onclick="addCoin(1000)">+ 1000 KB দিন</button>
   </div>
 </div>
 
@@ -64,7 +60,6 @@ let balance = 0;
 let playing = false;
 let currentMulti = 1.00;
 let betAmount = 0;
-let gotFree = false;
 let currentUser = "";
 
 function login(){
@@ -75,7 +70,6 @@ function login(){
   document.getElementById('login').style.display = 'none';
   document.getElementById('game').style.display = 'block';
 
-  // প্রথমবার 100 ফ্রি
   let savedFree = localStorage.getItem(currentUser + '_free');
   if(!savedFree){
     balance = 100;
@@ -93,7 +87,7 @@ function updateBalance(){
 }
 
 function bet(amount){
-  if(balance < amount){ alert("কয়েন নাই! উপরের বাটনে WhatsApp করুন"); return; }
+  if(balance < amount){ alert("কয়েন নাই! WhatsApp করুন"); return; }
   betAmount = amount;
   balance -= amount;
   playing = true;
@@ -104,7 +98,7 @@ function bet(amount){
     if(!playing){ clearInterval(fly); return; }
     currentMulti += 0.05;
     document.getElementById('multi').innerText = currentMulti.toFixed(2);
-    if(Math.random() > 0.95){ // র‍্যান্ডম ক্র্যাশ
+    if(Math.random() > 0.95){
       playing = false; 
       betAmount = 0;
       document.getElementById('result').innerText = "💥 ক্র্যাশ! আপনি হারলেন";
@@ -125,12 +119,10 @@ function cashout(){
 
 function addCoin(amount){
   let userToAdd = document.getElementById('addUser').value;
-  if(userToAdd == ""){ alert("কার জন্য কয়েন দিবেন নাম লিখুন"); return; }
-  
+  if(userToAdd == ""){ alert("নাম লিখুন"); return; }
   let userBalance = parseInt(localStorage.getItem(userToAdd + '_balance')) || 0;
   userBalance += amount;
   localStorage.setItem(userToAdd + '_balance', userBalance);
-  
   alert(userToAdd + " কে " + amount + " KB দেওয়া হলো");
   if(userToAdd == currentUser){
     balance = userBalance;
@@ -141,3 +133,4 @@ function addCoin(amount){
 
 </body>
   </html>
+  
